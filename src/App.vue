@@ -1,9 +1,15 @@
 <script setup>
-import Login from '@/views/login/index.vue'
+import {onMounted} from "vue";
+
+onMounted(()=>{
+  window.addEventListener('hashchange',(e)=>{
+    console.log(e)
+  })
+})
 </script>
 
 <template>
-  <login></login>
+  <router-view></router-view>
 </template>
 
 <style scoped>

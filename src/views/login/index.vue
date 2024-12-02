@@ -1,19 +1,23 @@
 <script setup>
 import {ref} from "vue";
 import {message} from "ant-design-vue";
+import {useRoute, useRouter} from "vue-router";
+
+const router = useRouter()
 
 const formRef = ref()
 const form = ref({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 
 const submit = () => {
-  message.info("提交----")
   formRef.value.validate()
     .then(() => {
       if (form.value.username === 'admin' && form.value.password === '123456') {
         message.success('登录成功')
+        localStorage.setItem('token', '登录token')
+        router.push('/home')
       } else {
         message.warn('用户名或密码错误')
       }
@@ -52,7 +56,7 @@ const submit = () => {
         </a-form-item>
 
         <a-form-item :wrapper-col="{ offset: 8, span: 16 }" name="remember">
-          <a-checkbox v-model:checked="form.remember">Remember me</a-checkbox>
+          <a-checkbox v-model:checked="form.remember">记住我</a-checkbox>
         </a-form-item>
 
         <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
@@ -77,6 +81,13 @@ const submit = () => {
     border: 1px solid skyblue;
     border-radius: 10px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ant-form{
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>
